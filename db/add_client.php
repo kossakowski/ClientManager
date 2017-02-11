@@ -10,13 +10,12 @@
 					{
 						if ($result->num_rows) 
 							{
-								$columns = $result->fetch_fields(); 
-								foreach ($columns as $column)
-									{
-										echo "<tr>";
-										echo "<td>",$column->name,"</td>","<td><input type=\"text\" name=\"",$column->name,"\"/></td>";
-										echo "</tr>";
-									}			
+								$columns = $result->fetch_fields();
+								for ($i=1; $i < count($columns); $i++) { 
+									echo "<tr>";
+									echo "<td>",$columns[$i]->name,"</td>","<td><input type=\"text\" name=\"",$columns[$i]->name,"\"/></td>";
+									echo "</tr>";
+								}	
 							}
 						$result->close();
 					}

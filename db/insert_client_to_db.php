@@ -2,16 +2,15 @@
 require "connect.php";
 	if(isset($_POST['submit'])) 
 		{
-      		$query = "INSERT INTO Clients VALUES(";
+      		$query = "INSERT INTO Clients VALUES(null,";
       		if ($result = $database->query ("SELECT * FROM Clients"))
       			{
 					if ($result->num_rows) 
 						{
 							$columns = $result->fetch_fields(); 
-							foreach ($columns as $column) 
+							for ($i=1; $i < count($columns); $i++) 
 								{
-									
-									$query = $query . "\"" . $_POST[$column->name] . "\",";
+									$query = $query . "\"" . $_POST[$columns[$i]->name] . "\",";
 								}							}
 					$result->close();
 				}
@@ -21,6 +20,7 @@ require "connect.php";
 				}
 			$query = rtrim($query,",");
 			$query = $query . ");";
+			echo $query;	
       		if ($database->query($query) === TRUE)
       			{
       				echo "Query succesfull";
